@@ -52,7 +52,22 @@ router.get('/notices/:id', function(req, res, next) {
 router.post('/notices', function(req, res, next) {
   Notices.create(req.body, function (err, post) {
     if (err) return next(err);
+    res.json(post);
+  });
+});
 
+router.put('/notices/:id', function(req, res, next) {
+  Notices.findByIdAndUpdate(req.params.id, req.body, function (err, post) {
+    console.log('!!!!!!!!!!!body: ', req.body);
+    console.log('!!!!!!!!!!!params: ', req.params);
+    if (err){ return next(err);}
+    res.json(post);
+  });
+});
+
+router.delete('/notices/:id', function(req, res, next) {
+  Notices.findByIdAndRemove(req.params.id, function (err, post) {
+    if (err) return next(err);
     res.json(post);
   });
 });
